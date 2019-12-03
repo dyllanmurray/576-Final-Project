@@ -77,7 +77,7 @@ function createReport(event){
                     onPlaceChanged(reports);
                     // showAllReports()
                 },
-                
+
                 error: function(xhr, status, error) {
                     alert("An AJAX error occured: " + status + "\nError: " + error);
                 }
