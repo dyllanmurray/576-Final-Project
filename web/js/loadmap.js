@@ -52,6 +52,16 @@ function mapInitialization(reports) {
 
     // QUESTION #2
     var icons = {
+        low:{
+            icon:'img/Low_Fire.png'
+        },
+        medium:{
+            icon:'img/Medium_Fire.png'
+        },
+        large:{
+            icon:'img/High_Fire.png'
+        },
+
         damage: {
             icon: 'img/damage1.png'
         },
@@ -72,8 +82,26 @@ function mapInitialization(reports) {
 
 
         bounds.extend(latlng);
-
         // Create the infoWindow content
+        var contentStr = '<h4>Fire Details</h4><hr>';
+
+        //used the line below to test if the request type was coming through.
+        //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
+
+        //STILL NEED TO UPDATE
+        contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
+        contentStr += '<p><b>' + 'Fire Severity' + ':</b>&nbsp' + e['fire_severity'] +
+            '</p>';
+
+        contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
+        contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
+            e['time_stamp'].substring(0, 19) + '</p>';
+        if ('message' in e) {
+            contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
+        }
+
+
+/*        // Create the infoWindow content
         var contentStr = '<h4>Report Details</h4><hr>';
 
         //used the line below to test if the request type was coming through.
@@ -94,7 +122,7 @@ function mapInitialization(reports) {
             e['time_stamp'].substring(0, 19) + '</p>';
         if ('message' in e) {
             contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
-        }
+        }*/
 
         // Create the marker
         // QUESTION #2 CON'T
