@@ -66,7 +66,7 @@ function mapInitialization(reports) {
             icon: 'img/damage1.png'
         },
         donation: {
-            icon: 'img/bank.png'
+            icon: 'img/High_Fire.png'
         },
         request: {
             icon: 'img/sos.png'
@@ -88,6 +88,7 @@ function mapInitialization(reports) {
         //used the line below to test if the request type was coming through.
         //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
 
+        //STILL NEED TO UPDATE
         contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
         contentStr += '<p><b>' + 'Fire Severity' + ':</b>&nbsp' + e['fire_severity'] +
             '</p>';

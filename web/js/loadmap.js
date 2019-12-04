@@ -66,7 +66,7 @@ function mapInitialization(reports) {
             icon: 'img/damage1.png'
         },
         donation: {
-            icon: 'img/bank.png'
+            icon: 'img/High_Fire.png'
         },
         request: {
             icon: 'img/sos.png'
