@@ -43,21 +43,7 @@
                                         <form id = "create_report_form">
                                                 <div><label>First Name:&nbsp</label><input placeholder="Enter your first name" name="fN"></div>
                                                 <div><label>Last Name:&nbsp</label><input placeholder="Enter your last name" name="lN"></div>
-<%--                                                <div>
-                                                        <label><input type="radio" name="is_male" value="t">&nbspMale</label>
-                                                        <label><input type="radio" name="is_male" value="f">&nbspFemale</label>
-                                                </div>--%>
- <%--                                               <div><label>Age:&nbsp</label><input placeholder="Your age" name="age"></div>
-                                                <div><label>Blood Type:</label>
-                                                        <select name="blood_type">
-                                                                <option value="">Choose your blood type</option>
-                                                                <option value="A">A</option>
-                                                                <option value="B">B</option>
-                                                                <option value="O">O</option>
-                                                                <option value="AB">AB</option>
-                                                                <option value="Other">Other</option>
-                                                        </select>
-                                                </div>--%>
+
                                                 <div><label>Telephone:&nbsp</label><input placeholder="Enter telephone number" name="telephone"></div>
                                                 <div><label>Email Acc:&nbsp</label><input placeholder="Enter your email address" name="email"></div>
                                                 <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
@@ -86,25 +72,7 @@
                                                                 <option value="High">High</option>
                                                         </select>
                                                 </div>
-<%--                                                <div><label>Report Type:</label>
-                                                        <select onchange="onSelectReportType(this)" name="report_type">
-                                                                <option value="">Choose the report type</option>
-                                                                <option value="donation">Donation</option>
-                                                                <option value="request">Request</option>
-                                                                <option value="damage">Damage Report</option>
-                                                        </select>
-                                                </div>
-                                                <div><label>Disaster Type:</label>
-                                                        <select name="disaster_type">
-                                                                <option value="">Choose the disaster type</option>
-                                                                <option value="flood">flood</option>
-                                                                <option value="wildfire">wildfire</option>
-                                                                <option value="earthquake">earthquake</option>
-                                                                <option value="tornado">tornado</option>
-                                                                <option value="hurricane">hurricane</option>
-                                                                <option value="other">other</option>
-                                                        </select>
-                                                </div>--%>
+
                                                 <div><label>Address:</label>
                                                         <input id="autocomplete" placeholder="Address" >
                                                 </div>

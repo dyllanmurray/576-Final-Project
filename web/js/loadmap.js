@@ -22,7 +22,7 @@ function showAllReports() {
     });
 }
 
-function showLastReport() {
+/*function showLastReport() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
@@ -35,17 +35,21 @@ function showLastReport() {
             alert("An AJAX error occured: " + status + "\nError: " + error);
         }
     });
-}
+}*/
 
 function mapInitialization(reports) {
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP, // Set the type of Map
+        center: {lat:37.386, lng:-119.956},
+        zoom: 8
+        //CANT GET THIS TO WORK
     };
 
     // Render the map within the empty div
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     var bounds = new google.maps.LatLngBounds();
+
     // QUESTION #2
     var icons = {
         damage: {
@@ -107,7 +111,6 @@ function mapInitialization(reports) {
             infowindow.setContent(marker['customInfo']);
             infowindow.open(map, marker); // Open InfoWindow
         });
-
     });
 
     map.fitBounds(bounds);
