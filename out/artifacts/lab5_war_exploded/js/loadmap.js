@@ -4,11 +4,26 @@ var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 
 function initialization() {
-    showAllReports();
+    //showAllReports();
     initAutocomplete();
+    initMap();
 }
 
-function showAllReports() {
+function initMap(){
+    $.ajax({
+        url: 'HttpServlet',
+        type: 'POST',
+        data: { "tab_id": "1"},
+        success: function(reports) {
+            mapInitialization(reports);
+        },
+        error: function(xhr, status, error) {
+            alert("An AJAX error occured: " + status + "\nError: " + error);
+        }
+    });
+}
+
+/*function showAllReports() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
@@ -20,7 +35,7 @@ function showAllReports() {
             alert("An AJAX error occured: " + status + "\nError: " + error);
         }
     });
-}
+}*/
 
 /*function showLastReport() {
     $.ajax({
