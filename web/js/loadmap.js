@@ -25,8 +25,8 @@ function initMap(){
 function mapInitialization(reports) {
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP, // Set the type of Map
-        center: {lat:37.386, lng:-119.956},
-        zoom: 8
+        center: {lat:37.386, lng:-119.956},//Extent of California
+        zoom: 6
         //CANT GET THIS TO WORK
     };
 
@@ -35,6 +35,14 @@ function mapInitialization(reports) {
 
     var bounds = new google.maps.LatLngBounds();
 
+    $.each(reports, function (i, e) {
+        var long = Number(e['longitude']);
+        var lat = Number(e['latitude']);
+        //Assign the icon variable
+        var report_type = e['report_type'];
+        var latlng = new google.maps.LatLng(lat, long);
+
+        bounds.extend(latlng);
     // QUESTION #2
     var icons = {
         low:{
@@ -58,15 +66,7 @@ function mapInitialization(reports) {
         }
     };
 
-    $.each(reports, function (i, e) {
-        var long = Number(e['longitude']);
-        var lat = Number(e['latitude']);
-        //Assign the icon variable
-        var report_type = e['report_type'];
-        var latlng = new google.maps.LatLng(lat, long);
 
-
-        bounds.extend(latlng);
         // Create the infoWindow content
         var contentStr = '<h4>Fire Details</h4><hr>';
 
@@ -126,7 +126,7 @@ function mapInitialization(reports) {
         });
     });
 
-    map.fitBounds(bounds);
+    //map.fitBounds(bounds);
 
 }
 
