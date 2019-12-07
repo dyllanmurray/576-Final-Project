@@ -4,7 +4,6 @@ var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 
 function initialization() {
-    //showAllReports();
     initAutocomplete();
     initMap();
 }
@@ -22,35 +21,6 @@ function initMap(){
         }
     });
 }
-
-/*function showAllReports() {
-    $.ajax({
-        url: 'HttpServlet',
-        type: 'POST',
-        data: {"tab_id": "1"},
-        success: function (reports) {
-            mapInitialization(reports);
-        },
-        error: function (xhr, status, error) {
-            alert("An AJAX error occured: " + status + "\nError: " + error);
-        }
-    });
-}*/
-
-/*function showLastReport() {
-    $.ajax({
-        url: 'HttpServlet',
-        type: 'POST',
-        data: {"tab_id": "1"},
-        success: function (reports) {
-            mapInitialization(reports);
-            onPlaceChanged();
-        },
-        error: function (xhr, status, error) {
-            alert("An AJAX error occured: " + status + "\nError: " + error);
-        }
-    });
-}*/
 
 function mapInitialization(reports) {
     var mapOptions = {
