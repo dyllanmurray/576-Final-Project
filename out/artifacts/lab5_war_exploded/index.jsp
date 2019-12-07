@@ -23,7 +23,7 @@
 
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
-        <a class="navbar-brand">Disaster Management Portal</a>
+        <a class="navbar-brand">California Trails and Wildland Fire Application</a>
 </nav>
 
 <div class="container-fluid">
@@ -41,51 +41,38 @@
                                 <!-- Create Report Tab Panel -->
                                 <div class="tab-pane active" id="create_report">
                                         <form id = "create_report_form">
-                                                <div><label>First Name:&nbsp</label><input placeholder="Your first name" name="fN"></div>
-                                                <div><label>Last Name:&nbsp</label><input placeholder="Your last name" name="lN"></div>
-                                                <div>
-                                                        <label><input type="radio" name="is_male" value="t">&nbspMale</label>
-                                                        <label><input type="radio" name="is_male" value="f">&nbspFemale</label>
+                                                <div><label>First Name:&nbsp</label><input placeholder="Enter your first name" name="fN"></div>
+                                                <div><label>Last Name:&nbsp</label><input placeholder="Enter your last name" name="lN"></div>
+
+                                                <div><label>Telephone:&nbsp</label><input placeholder="Enter telephone number" name="telephone"></div>
+                                                <div><label>Email Acc:&nbsp</label><input placeholder="Enter your email address" name="email"></div>
+                                                <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
+                                                        <select class="additional_msg_select" name="additional_message"></select>
+                                                        //Spacing
                                                 </div>
-                                                <div><label>Age:&nbsp</label><input placeholder="Your age" name="age"></div>
-                                                <div><label>Blood Type:</label>
-                                                        <select name="blood_type">
-                                                                <option value="">Choose your blood type</option>
-                                                                <option value="A">A</option>
-                                                                <option value="B">B</option>
-                                                                <option value="O">O</option>
-                                                                <option value="AB">AB</option>
+
+                                                <div><label>Type of Fire:</label>
+                                                        <select name="fire_type">
+                                                                <option value="">Choose the fire type</option>
+                                                                //Crown fires burn trees up their entire length to the top. These are the most intense and dangerous wildland fires.
+                                                                <option value="Crown">Crown</option>
+                                                                //Surface fires burn only surface litter and duff. These are the easiest fires to put out and cause the least damage.
+                                                                <option value="Surface">Surface</option>
+                                                                //Ground fires move very slow but can become difficult to fully put out or suppress.
+                                                                <option value="Ground">Ground</option>
+                                                                //Option for other
                                                                 <option value="Other">Other</option>
                                                         </select>
                                                 </div>
-                                                <div><label>Tel:&nbsp</label><input placeholder="Your telephone number" name="tel"></div>
-                                                <div><label>Email:&nbsp</label><input placeholder="Your email address" name="email"></div>
-                                                <div><label>Contact's First Name:&nbsp</label><input placeholder="Contact's first name" name="contact_fN"></div>
-                                                <div><label>Contact's Last Name:&nbsp</label><input placeholder="Contact's last name" name="contact_lN"></div>
-                                                <div><label>Contact's Tel:&nbsp</label><input placeholder="Contact's telephone number" name="contact_tel"></div>
-                                                <div><label>Contact's Email:&nbsp</label><input placeholder="Contact's email address" name="contact_email"></div>
-                                                <div><label>Report Type:</label>
-                                                        <select onchange="onSelectReportType(this)" name="report_type">
-                                                                <option value="">Choose the report type</option>
-                                                                <option value="donation">Donation</option>
-                                                                <option value="request">Request</option>
-                                                                <option value="damage">Damage Report</option>
+                                                <div><label>Fire Severity:</label>
+                                                        <select name="fire_severity">
+                                                                <option value="">Choose the burn severity</option>
+                                                                <option value="Low">Low</option>
+                                                                <option value="Medium">Medium</option>
+                                                                <option value="High">High</option>
                                                         </select>
                                                 </div>
-                                                <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
-                                                        <select class="additional_msg_select" name="additional_message"></select>
-                                                </div>
-                                                <div><label>Disaster Type:</label>
-                                                        <select name="disaster_type">
-                                                                <option value="">Choose the disaster type</option>
-                                                                <option value="flood">flood</option>
-                                                                <option value="wildfire">wildfire</option>
-                                                                <option value="earthquake">earthquake</option>
-                                                                <option value="tornado">tornado</option>
-                                                                <option value="hurricane">hurricane</option>
-                                                                <option value="other">other</option>
-                                                        </select>
-                                                </div>
+
                                                 <div><label>Address:</label>
                                                         <input id="autocomplete" placeholder="Address" >
                                                 </div>
