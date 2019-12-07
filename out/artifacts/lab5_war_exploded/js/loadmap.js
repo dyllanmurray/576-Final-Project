@@ -35,7 +35,6 @@ function mapInitialization(reports) {
 
     var bounds = new google.maps.LatLngBounds();
 
-    // QUESTION #2
     var icons = {
         low:{
             icon:'img/Low_Fire.png'
@@ -46,12 +45,8 @@ function mapInitialization(reports) {
         large:{
             icon:'img/High_Fire.png'
         },
-
         damage: {
             icon: 'img/damage1.png'
-        },
-        donation: {
-            icon: 'img/High_Fire.png'
         },
         request: {
             icon: 'img/sos.png'
@@ -77,40 +72,21 @@ function mapInitialization(reports) {
         contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
         contentStr += '<p><b>' + 'Fire Severity' + ':</b>&nbsp' + e['fire_severity'] +
             '</p>';
-
         contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
         contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
             e['time_stamp'].substring(0, 19) + '</p>';
+
+        contentStr = '<h4> Trail Review Information</h4><hr>';
+        contentStr += '<p><b>' + 'Trail Name' + ':</b>&nbsp' + e['trail_name'] + '</p>';
+        contentStr += '<p><b>' + 'Active' + ':</b>&nbsp' + active[e['active']] + '</p>';
+        contentStr += '<p><b>' + 'Date Hiked' + ':</b>&nbsp' + e['date_added'] + '</p>';
+        contentStr += '<p><b>' + 'Trail Rating' + ':</b>&nbsp' + e['rating'] + '</p>';
+        contentStr += '<p><b>' + 'Review Comments' + ':</b>&nbsp' + e['comments'] + '</p>';
+
         if ('message' in e) {
             contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
         }
 
-
-/*        // Create the infoWindow content
-        var contentStr = '<h4>Report Details</h4><hr>';
-
-        //used the line below to test if the request type was coming through.
-        //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
-
-        contentStr += '<p><b>' + 'Disaster' + ':</b>&nbsp' + e['disaster'] + '</p>';
-        contentStr += '<p><b>' + 'Report Type' + ':</b>&nbsp' + e['report_type'] +
-            '</p>';
-        if (e['report_type'] == 'request' || e['report_type'] == 'donation') {
-            contentStr += '<p><b>' + 'Resource Type' + ':</b>&nbsp' +
-                e['resource_type'] + '</p>';
-        } else if (e['report_type'] == 'damage') {
-            contentStr += '<p><b>' + 'Damage Type' + ':</b>&nbsp' + e['damage_type']
-                + '</p>';
-        }
-        contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
-        contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
-            e['time_stamp'].substring(0, 19) + '</p>';
-        if ('message' in e) {
-            contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
-        }*/
-
-        // Create the marker
-        // QUESTION #2 CON'T
         var marker = new google.maps.Marker({ // Set the marker
             position: latlng, // Position marker to coordinates
             icon: icons[report_type].icon,
