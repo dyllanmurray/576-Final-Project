@@ -32,14 +32,15 @@
 
                         <!-- Tab Navis-->
                         <ul class="nav nav-tabs">
-                                <li class="active"><a href="#create_report" data-toggle="tab">Create Report</a></li>
+                                <li><a href="#create_report" data-toggle="tab">Create Report</a></li>
+                                <li class="active"><a style="color:black" href="#add_review" data-toggle="tab">Add Review</a></li>
                                 <li><a href="#query_report" data-toggle="tab">Query</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content ">
                                 <!-- Create Report Tab Panel -->
-                                <div class="tab-pane active" id="create_report">
+                                <div class="tab-pane" id="create_report">
                                         <form id = "create_report_form">
                                                 <div><label>First Name:&nbsp</label><input placeholder="Enter your first name" name="fN"></div>
                                                 <div><label>Last Name:&nbsp</label><input placeholder="Enter your last name" name="lN"></div>
@@ -64,8 +65,8 @@
                                                                 <option value="Other">Other</option>
                                                         </select>
                                                 </div>
-                                                <div><label>Fire Severity:</label>
-                                                        <select name="fire_severity">
+                                                <div><label>Burn Severity:</label>
+                                                        <select name="burn_severity">
                                                                 <option value="">Choose the burn severity</option>
                                                                 <option value="Low">Low</option>
                                                                 <option value="Medium">Medium</option>
@@ -83,29 +84,98 @@
                                         </form>
                                 </div>
 
+                                        <!-- Add Review Panel -->
+                                        <div class="tab-pane active" id="add_review">
+                                                <form id="add_review_form">
+                                                        <h2>Add Review</h2>
+                                                        <!--<div><label>Zoom to Location:</label>
+                                                            <input id="autocomplete" placeholder="Location"></div> -->
+                                                        <div><label>Name:&nbsp</label><input placeholder="Trail Name" name="trail_name"></div>
+                                                        <div><label>Date Hiked:&nbsp</label><input placeholder="Date mm/dd/yyyy" name="date_added"></div>
+                                                        <!--<div><label>Trail ID(Required):</label><input placeholder="Trail ID" name="trail_id"></div>-->
+                                                        <div>
+                                                                <label><input type="radio" name="active" value="t">&nbspActive</label>
+                                                                <label><input type="radio" name="active" value="f">&nbspInactive</label>
+                                                        </div>
+                                                        <div><label>Rating:</label>
+                                                                <label><input type="radio" name="rating" value="1">&nbsp1</label>
+                                                                <label><input type="radio" name="rating" value="2">&nbsp2</label>
+                                                                <label><input type="radio" name="rating" value="3">&nbsp3</label>
+                                                                <label><input type="radio" name="rating" value="4">&nbsp4</label>
+                                                                <label><input type="radio" name="rating" value="5">&nbsp5</label>
+                                                        </div>
+                                                        <div>
+                                                                <label>Click Map or enter</label><div><label> Latitude:</label>
+                                                                <input type="text" id='lat' name="latitude"></div>
+                                                                <div><label>Longitude:</label><input type="text" id='lon' name="longitude"></div>
+                                                        </div>
+                                                        <div><label>Comment:&nbsp</label><input placeholder="Comments" name="comments"></div>
+                                                        <button type="submit" class="btn btn-default" id="review_submit_btn">
+                                                                <span class="glyphicon glyphicon-star"></span> Submit
+                                                        </button>
+                                                </form>
+                                        </div>
+
+
+                                        <!-- Query Trail Panel -->
+                                        <div class="tab-pane" id="query_trail">
+                                                <form id="query_review_form">
+                                                        <h2>Query Reviews</h2>
+                                                        <div><label>Trail Rating:</label>
+                                                                <select name="q_rating">
+                                                                        <option value="">Choose Trail Rating</option>
+                                                                        <option value="1+">1+</option>
+                                                                        <option value="2+">2+</option>
+                                                                        <option value="3+">3+</option>
+                                                                        <option value="4+">4+</option>
+                                                                        <option value="5">5</option>
+                                                                </select>
+                                                        </div>
+                                                        <div><label>Comment Key Word: </label>
+                                                                <input type="text" name="q_keyword">
+                                                        </div>
+                                                        <div><label>Trail Name</label>
+                                                                <input type="text" name="q_trail_name">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default" id="query_submit_btn">
+                                                                <span class="glyphicon glyphicon-star"></span> Submit the query
+                                                        </button>
+                                                </form>
+                                        </div>
+
                                 <!-- Query Report Tab Panel -->
                                 <div class="tab-pane" id="query_report">
                                         <form id = "query_report_form">
                                                 <div><label>Report Type:</label>
                                                         <select onchange="onSelectReportType(this)" name="report_type">
                                                                 <option value="">Choose the report type</option>
-                                                                <option value="donation">Donation</option>
-                                                                <option value="request">Request</option>
-                                                                <option value="damage">Damage Report</option>
+                                                                <option value="trail">Trail Review</option>
+                                                                <option value="wildfire">Wildfire Report</option>
                                                         </select>
                                                 </div>
-                                                <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
-                                                        <select class="additional_msg_select" name="resource_or_damage"></select>
-                                                </div>
-                                                <div><label>Disaster Type:</label>
-                                                        <select name="disaster_type">
-                                                                <option value="">Choose the disaster type</option>
-                                                                <option value="flood">flood</option>
-                                                                <option value="wildfire">wildfire</option>
-                                                                <option value="earthquake">earthquake</option>
-                                                                <option value="tornado">tornado</option>
-                                                                <option value="hurricane">hurricane</option>
+<%--                                                <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>--%>
+<%--                                                        <select class="additional_msg_select" name="resource_or_damage"></select>--%>
+<%--                                                </div>--%>
+                                                <div><label>Burn Severity:</label>
+                                                        <select name="burn_severity">
+                                                                <option value="">Choose the fire intensity:</option>
+                                                                <option value="low">Low</option>
+                                                                <option value="medium">Medium</option>
+                                                                <option value="high">High</option>
                                                                 <option value="other">other</option>
+                                                        </select>
+                                                </div>
+                                                <div><label>Type of Fire:</label>
+                                                        <select name="fire_type">
+                                                                <option value="">Choose the fire type</option>
+                                                                //Crown fires burn trees up their entire length to the top. These are the most intense and dangerous wildland fires.
+                                                                <option value="Crown">Crown</option>
+                                                                //Surface fires burn only surface litter and duff. These are the easiest fires to put out and cause the least damage.
+                                                                <option value="Surface">Surface</option>
+                                                                //Ground fires move very slow but can become difficult to fully put out or suppress.
+                                                                <option value="Ground">Ground</option>
+                                                                //Option for other
+                                                                <option value="Other">Other</option>
                                                         </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-default">
