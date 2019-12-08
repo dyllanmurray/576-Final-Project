@@ -3,9 +3,13 @@ var place;
 var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 
+//variable for the marker used to create a new trail
+var newMarker;
+
 function initialization() {
     initAutocomplete();
     initMap();
+    onPlaceChanged();
 }
 
 function initMap(){
@@ -45,11 +49,14 @@ function mapInitialization(reports) {
         large:{
             icon:'img/High_Fire.png'
         },
-        damage: {
-            icon: 'img/damage1.png'
-        },
         request: {
             icon: 'img/sos.png'
+        },
+        review:{
+            icon:"img/review.png"
+        },
+        trailHead:{
+            icon:"img/trailHead.png"
         }
     };
 
@@ -62,6 +69,12 @@ function mapInitialization(reports) {
 
 
         bounds.extend(latlng);
+
+        var active = {
+            "t": "Yes",
+            "f": "No"
+        };
+
         // Create the infoWindow content
         var contentStr = '<h4>Fire Details</h4><hr>';
 
@@ -70,7 +83,7 @@ function mapInitialization(reports) {
 
         //STILL NEED TO UPDATE
         contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
-        contentStr += '<p><b>' + 'Fire Severity' + ':</b>&nbsp' + e['fire_severity'] +
+        contentStr += '<p><b>' + 'Burn Severity' + ':</b>&nbsp' + e['burn_severity'] +
             '</p>';
         contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
         contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
@@ -99,6 +112,29 @@ function mapInitialization(reports) {
             // use 'customInfo' to customize infoWindow
             infowindow.setContent(marker['customInfo']);
             infowindow.open(map, marker); // Open InfoWindow
+        });
+
+        google.maps.event.addListener(map, "click", function(event) {
+            // get lat/lon of click
+            var clickLat = event.latLng.lat();
+            var clickLon = event.latLng.lng();
+
+            // show in input box
+            document.getElementById("lat").value = clickLat.toFixed(5);
+            document.getElementById("lon").value = clickLon.toFixed(5);
+
+            //check for existing marker
+            if (newMarker && newMarker.setMap){
+                newMarker.setMap(null);
+            }
+
+            //places the new marker
+            newMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat, clickLon),
+                icon: reviewIcon,
+                map: map
+            });
+
         });
     });
 

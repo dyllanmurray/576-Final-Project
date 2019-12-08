@@ -46,7 +46,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
         // create a report
         if (tab_id.equals("0")) {
-            System.out.println("A report is submitted!");
+            System.out.println("Your Trail review has been submitted!");
             try {
                 createReport(request, response);
             } catch (SQLException e) {
