@@ -3,9 +3,13 @@ var place;
 var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 
+//variable for the marker used to create a new trail
+var newMarker;
+
 function initialization() {
     initAutocomplete();
     initMap();
+    onPlaceChanged();
 }
 
 function initMap(){
@@ -25,8 +29,8 @@ function initMap(){
 function mapInitialization(reports) {
     var mapOptions = {
         mapTypeId: google.maps.MapTypeId.ROADMAP, // Set the type of Map
-        center: {lat:37.386, lng:-119.956},//Extent of California
-        zoom: 6
+        center: {lat:37.386, lng:-119.956},
+        zoom: 8
         //CANT GET THIS TO WORK
     };
 
@@ -35,15 +39,6 @@ function mapInitialization(reports) {
 
     var bounds = new google.maps.LatLngBounds();
 
-    $.each(reports, function (i, e) {
-        var long = Number(e['longitude']);
-        var lat = Number(e['latitude']);
-        //Assign the icon variable
-        var report_type = e['report_type'];
-        var latlng = new google.maps.LatLng(lat, long);
-
-        bounds.extend(latlng);
-    // QUESTION #2
     var icons = {
         low:{
             icon:'img/Low_Fire.png'
@@ -54,18 +49,31 @@ function mapInitialization(reports) {
         large:{
             icon:'img/High_Fire.png'
         },
-
-        damage: {
-            icon: 'img/damage1.png'
-        },
-        donation: {
-            icon: 'img/High_Fire.png'
-        },
         request: {
             icon: 'img/sos.png'
+        },
+        review:{
+            icon:"img/review.png"
+        },
+        trailHead:{
+            icon:"img/trailHead.png"
         }
     };
 
+    $.each(reports, function (i, e) {
+        var long = Number(e['longitude']);
+        var lat = Number(e['latitude']);
+        //Assign the icon variable
+        var report_type = e['report_type'];
+        var latlng = new google.maps.LatLng(lat, long);
+
+
+        bounds.extend(latlng);
+
+        var active = {
+            "t": "Yes",
+            "f": "No"
+        };
 
         // Create the infoWindow content
         var contentStr = '<h4>Fire Details</h4><hr>';
@@ -75,42 +83,23 @@ function mapInitialization(reports) {
 
         //STILL NEED TO UPDATE
         contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
-        contentStr += '<p><b>' + 'Fire Severity' + ':</b>&nbsp' + e['fire_severity'] +
+        contentStr += '<p><b>' + 'Burn Severity' + ':</b>&nbsp' + e['burn_severity'] +
             '</p>';
-
         contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
         contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
             e['time_stamp'].substring(0, 19) + '</p>';
+
+        contentStr = '<h4> Trail Review Information</h4><hr>';
+        contentStr += '<p><b>' + 'Trail Name' + ':</b>&nbsp' + e['trail_name'] + '</p>';
+        contentStr += '<p><b>' + 'Active' + ':</b>&nbsp' + active[e['active']] + '</p>';
+        contentStr += '<p><b>' + 'Date Hiked' + ':</b>&nbsp' + e['date_added'] + '</p>';
+        contentStr += '<p><b>' + 'Trail Rating' + ':</b>&nbsp' + e['rating'] + '</p>';
+        contentStr += '<p><b>' + 'Review Comments' + ':</b>&nbsp' + e['comments'] + '</p>';
+
         if ('message' in e) {
             contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
         }
 
-
-/*        // Create the infoWindow content
-        var contentStr = '<h4>Report Details</h4><hr>';
-
-        //used the line below to test if the request type was coming through.
-        //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
-
-        contentStr += '<p><b>' + 'Disaster' + ':</b>&nbsp' + e['disaster'] + '</p>';
-        contentStr += '<p><b>' + 'Report Type' + ':</b>&nbsp' + e['report_type'] +
-            '</p>';
-        if (e['report_type'] == 'request' || e['report_type'] == 'donation') {
-            contentStr += '<p><b>' + 'Resource Type' + ':</b>&nbsp' +
-                e['resource_type'] + '</p>';
-        } else if (e['report_type'] == 'damage') {
-            contentStr += '<p><b>' + 'Damage Type' + ':</b>&nbsp' + e['damage_type']
-                + '</p>';
-        }
-        contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
-        contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
-            e['time_stamp'].substring(0, 19) + '</p>';
-        if ('message' in e) {
-            contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
-        }*/
-
-        // Create the marker
-        // QUESTION #2 CON'T
         var marker = new google.maps.Marker({ // Set the marker
             position: latlng, // Position marker to coordinates
             icon: icons[report_type].icon,
@@ -124,9 +113,32 @@ function mapInitialization(reports) {
             infowindow.setContent(marker['customInfo']);
             infowindow.open(map, marker); // Open InfoWindow
         });
+
+        google.maps.event.addListener(map, "click", function(event) {
+            // get lat/lon of click
+            var clickLat = event.latLng.lat();
+            var clickLon = event.latLng.lng();
+
+            // show in input box
+            document.getElementById("lat").value = clickLat.toFixed(5);
+            document.getElementById("lon").value = clickLon.toFixed(5);
+
+            //check for existing marker
+            if (newMarker && newMarker.setMap){
+                newMarker.setMap(null);
+            }
+
+            //places the new marker
+            newMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat, clickLon),
+                icon: reviewIcon,
+                map: map
+            });
+
+        });
     });
 
-    //map.fitBounds(bounds);
+    map.fitBounds(bounds);
 
 }
 
