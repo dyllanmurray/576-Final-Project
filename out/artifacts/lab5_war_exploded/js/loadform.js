@@ -72,7 +72,7 @@ function createReport(event){
                 type: 'POST',
                 data: { "tab_id": "1"},
                 success: function(reports) {
-                   mapInitialization(reports);
+                    mapInitialization(reports);
                     // BONUS QUESTION #4.6
                     onPlaceChanged(reports);
                     // showAllReports()
