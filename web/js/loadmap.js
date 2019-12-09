@@ -43,28 +43,28 @@ function mapInitialization(reports) {
         var latlng = new google.maps.LatLng(lat, long);
 
         bounds.extend(latlng);
-    // QUESTION #2
-    var icons = {
-        low:{
-            icon:'img/Low_Fire.png'
-        },
-        medium:{
-            icon:'img/Medium_Fire.png'
-        },
-        large:{
-            icon:'img/High_Fire.png'
-        },
+        // QUESTION #2
+        var icons = {
+            low:{
+                icon:'img/Low_Fire.png'
+            },
+            medium:{
+                icon:'img/Medium_Fire.png'
+            },
+            large:{
+                icon:'img/High_Fire.png'
+            },
 
-        damage: {
-            icon: 'img/damage1.png'
-        },
-        donation: {
-            icon: 'img/High_Fire.png'
-        },
-        request: {
-            icon: 'img/sos.png'
-        }
-    };
+            damage: {
+                icon: 'img/damage1.png'
+            },
+            donation: {
+                icon: 'img/High_Fire.png'
+            },
+            request: {
+                icon: 'img/sos.png'
+            }
+        };
 
 
         // Create the infoWindow content
@@ -75,7 +75,7 @@ function mapInitialization(reports) {
 
         //STILL NEED TO UPDATE
         contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
-        contentStr += '<p><b>' + 'Fire Severity' + ':</b>&nbsp' + e['fire_severity'] +
+        contentStr += '<p><b>' + 'Burn Severity' + ':</b>&nbsp' + e['burn_severity'] +
             '</p>';
 
         contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
@@ -86,31 +86,30 @@ function mapInitialization(reports) {
         }
 
 
-/*        // Create the infoWindow content
-        var contentStr = '<h4>Report Details</h4><hr>';
+        /*        // Create the infoWindow content
+                var contentStr = '<h4>Report Details</h4><hr>';
 
-        //used the line below to test if the request type was coming through.
-        //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
+                //used the line below to test if the request type was coming through.
+                //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
 
-        contentStr += '<p><b>' + 'Disaster' + ':</b>&nbsp' + e['disaster'] + '</p>';
-        contentStr += '<p><b>' + 'Report Type' + ':</b>&nbsp' + e['report_type'] +
-            '</p>';
-        if (e['report_type'] == 'request' || e['report_type'] == 'donation') {
-            contentStr += '<p><b>' + 'Resource Type' + ':</b>&nbsp' +
-                e['resource_type'] + '</p>';
-        } else if (e['report_type'] == 'damage') {
-            contentStr += '<p><b>' + 'Damage Type' + ':</b>&nbsp' + e['damage_type']
-                + '</p>';
-        }
-        contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
-        contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
-            e['time_stamp'].substring(0, 19) + '</p>';
-        if ('message' in e) {
-            contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
-        }*/
+                contentStr += '<p><b>' + 'Disaster' + ':</b>&nbsp' + e['disaster'] + '</p>';
+                contentStr += '<p><b>' + 'Report Type' + ':</b>&nbsp' + e['report_type'] +
+                    '</p>';
+                if (e['report_type'] == 'request' || e['report_type'] == 'donation') {
+                    contentStr += '<p><b>' + 'Resource Type' + ':</b>&nbsp' +
+                        e['resource_type'] + '</p>';
+                } else if (e['report_type'] == 'damage') {
+                    contentStr += '<p><b>' + 'Damage Type' + ':</b>&nbsp' + e['damage_type']
+                        + '</p>';
+                }
+                contentStr += '<p><b>' + 'Reportor' + ':</b>&nbsp' + e['first_name'] + '&nbsp' + e['last_name'] + '</p>';
+                contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
+                    e['time_stamp'].substring(0, 19) + '</p>';
+                if ('message' in e) {
+                    contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
+                }*/
 
         // Create the marker
-        // QUESTION #2 CON'T
         var marker = new google.maps.Marker({ // Set the marker
             position: latlng, // Position marker to coordinates
             icon: icons[report_type].icon,
