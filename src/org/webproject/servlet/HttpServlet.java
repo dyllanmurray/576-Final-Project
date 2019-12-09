@@ -91,6 +91,17 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         }
     }
 
+    private void queryReview(HttpServletRequest request, HttpServletResponse response)
+            throws JSONException, SQLException, IOException {
+        JSONArray list = new JSONArray();
+    }
+
+    private void createReview(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        DBUtility dbutil = new DBUtility();
+        String sql;
+    }
+
     private void createReport(HttpServletRequest request, HttpServletResponse
             response) throws SQLException, IOException {
         DBUtility dbutil = new DBUtility();
