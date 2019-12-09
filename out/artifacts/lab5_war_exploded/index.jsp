@@ -145,16 +145,6 @@
                                 <!-- Query Report Tab Panel -->
                                 <div class="tab-pane" id="query_report">
                                         <form id = "query_report_form">
-                                                <div><label>Report Type:</label>
-                                                        <select onchange="onSelectReportType(this)" name="report_type">
-                                                                <option value="">Choose the report type</option>
-                                                                <option value="trail">Trail Review</option>
-                                                                <option value="wildfire">Wildfire Report</option>
-                                                        </select>
-                                                </div>
-                                                <%--                                                <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>--%>
-                                                <%--                                                        <select class="additional_msg_select" name="resource_or_damage"></select>--%>
-                                                <%--                                                </div>--%>
                                                 <div><label>Burn Severity:</label>
                                                         <select name="burn_severity">
                                                                 <option value="">Choose the fire intensity:</option>
