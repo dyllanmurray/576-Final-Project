@@ -5,8 +5,7 @@ function onSelectReportType(ele){
     var select = $(form).find(".additional_msg_select");
     //when the element additional msg is changed
     switch (ele.value) {
-        case "wildfire"://when donation or requests is selected
-        case "report":
+        case "wildfire":
             label.text("Fire Type:");
             select.find('option').remove();
             select.append($("<option></option>")
@@ -19,7 +18,19 @@ function onSelectReportType(ele){
                     .text(value));
             });
             break;
-        //if damage is selected
+        case "trail":
+            label.text("Trail Rating:");
+            select.find('option').remove();
+            select.append($("<option></option>")
+                .attr("value","")
+                .text("Choose the trail rating"));
+            selectValues = ['1', '2', '3', '4'];//populate the drop down.
+            $.each(selectValues, function(index,value) {
+                select.append($("<option></option>")
+                    .attr("value",value)
+                    .text(value));
+            });
+/*        //if damage is selected
         case "damage":
             label.text("Damage Type:");
             select.find('option').remove();
@@ -33,7 +44,7 @@ function onSelectReportType(ele){
                     .attr("value",value)
                     .text(value));
             });
-            break;
+            break;*/
         default://default if report type is not selected is to stay hidden
             $(form).find(".additional_msg_div").css("visibility", "hidden");
             return;

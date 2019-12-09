@@ -90,7 +90,7 @@
                                         <form id="add_review_form">
                                                 <!--<div><label>Zoom to Location:</label>
                                                     <input id="autocomplete" placeholder="Location"></div> -->
-                                                <div><label>Name:&nbsp</label><input placeholder="Trail Name" name="trail_name"></div>
+                                                <div><label>Trail Name:&nbsp</label><input placeholder="Trail Name" name="trail_name"></div>
                                                 <div><label>Date Hiked:&nbsp</label><input placeholder="Date mm/dd/yyyy" name="date_added"></div>
                                                 <!--<div><label>Trail ID(Required):</label><input placeholder="Trail ID" name="trail_id"></div>-->
                                                 <div>
@@ -179,7 +179,6 @@
 
         </div>
 </div>
-
 <script src="js/loadform.js"></script>
 <script src="js/loadmap.js"></script>
 

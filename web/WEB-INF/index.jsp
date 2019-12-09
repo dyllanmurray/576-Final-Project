@@ -27,15 +27,15 @@
 </nav>
 
 <div class="container-fluid">
+
         <div class="row">
                 <div class="sidebar col-xs-3">
 
                         <!-- Tab Navis-->
                         <ul class="nav nav-tabs">
-                                <li><a href="#create_report" data-toggle="tab">Create Wildfire Report</a></li>
-                                <li class="active"><a href="#add_review" data-toggle="tab">Add Trail Review</a></li>
-                                <li><a href="#query_report" data-toggle="tab">Query Wildfires</a></li>
-                                <li><a href="#query_trail" data-toggle="tab">Query Trails</a></li>
+                                <li><a href="#create_report" data-toggle="tab">Create Report</a></li>
+                                <li class="active"><a style="color:black" href="#add_review" data-toggle="tab">Add Review</a></li>
+                                <li><a href="#query_report" data-toggle="tab">Query</a></li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -88,6 +88,7 @@
                                 <!-- Add Review Panel -->
                                 <div class="tab-pane active" id="add_review">
                                         <form id="add_review_form">
+                                                <h2>Add Review</h2>
                                                 <!--<div><label>Zoom to Location:</label>
                                                     <input id="autocomplete" placeholder="Location"></div> -->
                                                 <div><label>Name:&nbsp</label><input placeholder="Trail Name" name="trail_name"></div>
@@ -120,6 +121,7 @@
                                 <!-- Query Trail Panel -->
                                 <div class="tab-pane" id="query_trail">
                                         <form id="query_review_form">
+                                                <h2>Query Reviews</h2>
                                                 <div><label>Trail Rating:</label>
                                                         <select name="q_rating">
                                                                 <option value="">Choose Trail Rating</option>
@@ -145,6 +147,16 @@
                                 <!-- Query Report Tab Panel -->
                                 <div class="tab-pane" id="query_report">
                                         <form id = "query_report_form">
+                                                <div><label>Report Type:</label>
+                                                        <select onchange="onSelectReportType(this)" name="report_type">
+                                                                <option value="">Choose the report type</option>
+                                                                <option value="trail">Trail Review</option>
+                                                                <option value="wildfire">Wildfire Report</option>
+                                                        </select>
+                                                </div>
+                                                <%--                                                <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>--%>
+                                                <%--                                                        <select class="additional_msg_select" name="resource_or_damage"></select>--%>
+                                                <%--                                                </div>--%>
                                                 <div><label>Burn Severity:</label>
                                                         <select name="burn_severity">
                                                                 <option value="">Choose the fire intensity:</option>
@@ -179,6 +191,7 @@
 
         </div>
 </div>
+
 <script src="js/loadform.js"></script>
 <script src="js/loadmap.js"></script>
 
