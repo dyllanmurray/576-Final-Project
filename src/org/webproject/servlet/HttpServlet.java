@@ -44,9 +44,9 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
         String tab_id = request.getParameter("tab_id");
 
-        // create a report
+        // create wildfire report
         if (tab_id.equals("0")) {
-            System.out.println("Your Trail review has been submitted!");
+            System.out.println("Your wildfire report has been submitted!");
             try {
                 createReport(request, response);
             } catch (SQLException e) {
@@ -54,8 +54,18 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
             }
         }
 
-        // query reports
+        //create trail review
         else if (tab_id.equals("1")) {
+            System.out.println("Your trail review has been submitted!");
+            try {
+                createReview(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // query wildfire reports
+        else if (tab_id.equals("2")) {
             try {
                 queryReport(request, response);
             } catch (JSONException e) {
@@ -66,6 +76,30 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
                 e.printStackTrace();
             }
         }
+
+        // query trail reviews
+        else if (tab_id.equals("3")) {
+            try {
+                queryReview(request, response);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void queryReview(HttpServletRequest request, HttpServletResponse response)
+            throws JSONException, SQLException, IOException {
+        JSONArray list = new JSONArray();
+    }
+
+    private void createReview(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        DBUtility dbutil = new DBUtility();
+        String sql;
     }
 
     private void createReport(HttpServletRequest request, HttpServletResponse
@@ -73,58 +107,16 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         DBUtility dbutil = new DBUtility();
         String sql;
 
-        // 1. create emergency contact
-        int contact_id = 0;
-        String contact_fN = request.getParameter("contact_fN");
-        String contact_lN = request.getParameter("contact_lN");
-        String contact_tel = request.getParameter("contact_tel");
-        String contact_email = request.getParameter("contact_email");
-        if (contact_fN != null) {contact_fN = "'" + contact_fN + "'";}
-        if (contact_lN != null) {contact_lN = "'" + contact_lN + "'";}
-        if (contact_tel != null) {contact_tel = "'" + contact_tel + "'";}
-        if (contact_email != null) {contact_email = "'" + contact_email + "'";}
-        if (contact_fN != null && contact_lN != null) {
-            // create the contact
-            sql = "insert into person (first_name, last_name, telephone, email) " +
-                    "values (" + contact_fN + "," + contact_lN + "," + contact_tel + ","
-                    + contact_email + ")";
-            dbutil.modifyDB(sql);
-
-            // record the contact id
-            ResultSet res_1 = dbutil.queryDB("select last_value from person_id_seq");
-            res_1.next();
-            contact_id = res_1.getInt(1);
-
-            System.out.println("Success! Contact created.");
-        }
-
-        // 2. create user
+        // create user
         int user_id = 0;
         String fN = request.getParameter("fN");
         String lN = request.getParameter("lN");
-        String is_male = request.getParameter("is_male");
-        String age = request.getParameter("age");
-        String blood_type = request.getParameter("blood_type");
         String tel = request.getParameter("tel");
         String email = request.getParameter("email");
         if (fN != null) {fN = "'" + fN + "'";}
         if (lN != null) {lN = "'" + lN + "'";}
-        if (is_male != null) {is_male = "'" + is_male + "'";}
-        if (age != null) {age = "'" + age + "'";}
-        if (blood_type != null) {blood_type = "'" + blood_type + "'";}
         if (tel != null) {tel = "'" + tel + "'";}
         if (email != null) {email = "'" + email + "'";}
-
-        sql = "insert into person (first_name, last_name, is_male, age, " +
-                "blood_type, telephone, email, emergency_contact_id) values (" + fN +
-                "," + lN + "," + is_male + "," + age + "," + blood_type + "," + tel +
-                "," + email;
-        if (contact_id > 0) { // check whether has a contact
-            sql += "," + contact_id + ")";
-        } else {
-            sql += ",null)";
-        }
-        dbutil.modifyDB(sql);
 
         // record user_id
         ResultSet res_2 = dbutil.queryDB("select last_value from person_id_seq");
@@ -136,20 +128,17 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         // 3. create report
         int report_id = 0;
         String report_type = request.getParameter("report_type");
-        String disaster_type = request.getParameter("disaster_type");
         String lon = request.getParameter("longitude");
         String lat = request.getParameter("latitude");
         String message = request.getParameter("message");
         String add_msg = request.getParameter("additional_message");
         if (report_type != null) {report_type = "'" + report_type + "'";}
-        if (disaster_type != null) {disaster_type = "'" + disaster_type + "'";}
         if (message != null) {message = "'" + message + "'";}
         if (add_msg != null) {add_msg = "'" + add_msg + "'";}
 
         sql = "insert into report (reportor_id, report_type, disaster_type, geom," +
-                " message) values (" + user_id + "," + report_type + "," + disaster_type
-                + ", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)" + "," +
-                message + ")";
+                " message) values (" + user_id + "," + report_type + "," + ", ST_GeomFromText('POINT(" + lon + " " + lat
+                + ")', 4326)" + "," + message + ")";
         dbutil.modifyDB(sql);
 
         // record report_id

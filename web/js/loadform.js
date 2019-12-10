@@ -5,8 +5,7 @@ function onSelectReportType(ele){
     var select = $(form).find(".additional_msg_select");
     //when the element additional msg is changed
     switch (ele.value) {
-        case "wildfire"://when donation or requests is selected
-        case "report":
+        case "wildfire":
             label.text("Fire Type:");
             select.find('option').remove();
             select.append($("<option></option>")
@@ -19,7 +18,19 @@ function onSelectReportType(ele){
                     .text(value));
             });
             break;
-        //if damage is selected
+        case "trail":
+            label.text("Trail Rating:");
+            select.find('option').remove();
+            select.append($("<option></option>")
+                .attr("value","")
+                .text("Choose the trail rating"));
+            selectValues = ['1', '2', '3', '4','5'];//populate the drop down.
+            $.each(selectValues, function(index,value) {
+                select.append($("<option></option>")
+                    .attr("value",value)
+                    .text(value));
+            });
+/*        //if damage is selected
         case "damage":
             label.text("Damage Type:");
             select.find('option').remove();
@@ -33,7 +44,7 @@ function onSelectReportType(ele){
                     .attr("value",value)
                     .text(value));
             });
-            break;
+            break;*/
         default://default if report type is not selected is to stay hidden
             $(form).find(".additional_msg_div").css("visibility", "hidden");
             return;
@@ -94,7 +105,7 @@ function createReview(event){
     event.preventDefault();// // stop form from submitting normally
     //create variable and assign as a serialized array
     var a = $("#add_review_form").serializeArray();
-    a.push({name: "tab_id", value: "0"});//push the items to make sure create a report is ran in the servlett
+    a.push({name: "tab_id", value: "1"});//push the items to make sure create a report is ran in the servlett
     // push to a the long and lat of the location selected by user
     a.push({name: "longitude", value: place.geometry.location.lng()});
     a.push({name: "latitude", value: place.geometry.location.lat()});
@@ -136,7 +147,7 @@ function queryReport(event) {
     event.preventDefault(); // stop form from submitting normally
 
     var a = $("#query_report_form").serializeArray();
-    a.push({ name: "tab_id", value: "1" });// call to query the database
+    a.push({ name: "tab_id", value: "2" });// call to query the database
     a = a.filter(function(item){return item.value != '';});//remove items with no values
     $.ajax({
         url: 'HttpServlet',
@@ -152,5 +163,27 @@ function queryReport(event) {
 }
 
 $("#query_report_form").on("submit",queryReport);
+
+//run query when button is pressed
+function queryReview(event) {
+    event.preventDefault(); // stop form from submitting normally
+
+    var a = $("#query_review_form").serializeArray();
+    a.push({ name: "tab_id", value: "3" });// call to query the database
+    a = a.filter(function(item){return item.value != '';});//remove items with no values
+    $.ajax({
+        url: 'HttpServlet',
+        type: 'POST',
+        data: a,
+        success: function(reports) {
+            mapInitialization(reports);
+        },
+        error: function(xhr, status, error) {
+            alert("Status: " + status + "\nError: " + error);
+        }
+    });
+}
+
+$("#query_review_form").on("submit",queryReview);
 	
 	

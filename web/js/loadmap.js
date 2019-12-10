@@ -31,7 +31,6 @@ function mapInitialization(reports) {
         mapTypeId: google.maps.MapTypeId.ROADMAP, // Set the type of Map
         center: {lat:37.386, lng:-119.956},
         zoom: 8
-        //CANT GET THIS TO WORK
     };
 
     // Render the map within the empty div
@@ -77,9 +76,6 @@ function mapInitialization(reports) {
 
         // Create the infoWindow content
         var contentStr = '<h4>Fire Details</h4><hr>';
-
-        //used the line below to test if the request type was coming through.
-        //contentStr += '<p><b>' + icons[report_type].icon + '</b></p>';
 
         //STILL NEED TO UPDATE
         contentStr += '<p><b>' + 'Fire Type' + ':</b>&nbsp' + e['fire_type'] + '</p>';
