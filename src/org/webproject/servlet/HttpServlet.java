@@ -1,17 +1,19 @@
 package org.webproject.servlet;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.webproject.servlet.DBUtility;
 
 /**
  * Servlet implementation class HttpServlet
@@ -32,7 +34,6 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
-
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -100,11 +101,14 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         String fN = request.getParameter("fN");
         String lN = request.getParameter("lN");
         String tel = request.getParameter("tel");
-        String email = request.getParameter("email");
         if (fN != null) {fN = "'" + fN + "'";}
         if (lN != null) {lN = "'" + lN + "'";}
         if (tel != null) {tel = "'" + tel + "'";}
-        if (email != null) {email = "'" + email + "'";}
+
+        sql = "insert into person (first_name, last_name, telephone) values (" + fN +
+                "," + lN + "," + tel;
+
+        dbutil.modifyDB(sql);
 
         // record user_id
         ResultSet res_2 = dbutil.queryDB("select last_value from person_id_seq");
@@ -167,11 +171,10 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         String fN = request.getParameter("fN");
         String lN = request.getParameter("lN");
         String tel = request.getParameter("tel");
-        String email = request.getParameter("email");
+
         if (fN != null) {fN = "'" + fN + "'";}
         if (lN != null) {lN = "'" + lN + "'";}
         if (tel != null) {tel = "'" + tel + "'";}
-        if (email != null) {email = "'" + email + "'";}
 
         // record user_id
         ResultSet res_2 = dbutil.queryDB("select last_value from person_id_seq");

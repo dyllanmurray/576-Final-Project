@@ -57,21 +57,21 @@
                                                         <select name="fire_type">
                                                                 <option value="">Choose the fire type</option>
                                                                 //Crown fires burn trees up their entire length to the top. These are the most intense and dangerous wildland fires.
-                                                                <option value="Crown">Crown</option>
+                                                                <option value="crown">Crown</option>
                                                                 //Surface fires burn only surface litter and duff. These are the easiest fires to put out and cause the least damage.
-                                                                <option value="Surface">Surface</option>
+                                                                <option value="surface">Surface</option>
                                                                 //Ground fires move very slow but can become difficult to fully put out or suppress.
-                                                                <option value="Ground">Ground</option>
+                                                                <option value="ground">Ground</option>
                                                                 //Option for other
-                                                                <option value="Other">Other</option>
+                                                                <option value="other">Other</option>
                                                         </select>
                                                 </div>
                                                 <div><label>Burn Severity:</label>
-                                                        <select name="burn_type">
+                                                        <select name="burn_severity">
                                                                 <option value="">Choose the burn severity</option>
-                                                                <option value="Low">Low</option>
-                                                                <option value="Medium">Medium</option>
-                                                                <option value="High">High</option>
+                                                                <option value="low">Low</option>
+                                                                <option value="medium">Medium</option>
+                                                                <option value="high">High</option>
                                                         </select>
                                                 </div>
 
@@ -158,13 +158,13 @@
                                                         <select name="fire_type">
                                                                 <option value="">Choose the fire type</option>
                                                                 //Crown fires burn trees up their entire length to the top. These are the most intense and dangerous wildland fires.
-                                                                <option value="Crown">Crown</option>
+                                                                <option value="crown">Crown</option>
                                                                 //Surface fires burn only surface litter and duff. These are the easiest fires to put out and cause the least damage.
-                                                                <option value="Surface">Surface</option>
+                                                                <option value="surface">Surface</option>
                                                                 //Ground fires move very slow but can become difficult to fully put out or suppress.
-                                                                <option value="Ground">Ground</option>
+                                                                <option value="ground">Ground</option>
                                                                 //Option for other
-                                                                <option value="Other">Other</option>
+                                                                <option value="other">Other</option>
                                                         </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-default">

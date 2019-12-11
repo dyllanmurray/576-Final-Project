@@ -1,47 +1,8 @@
-//when report type is selected change hidden dropdown to correct items.
-function onSelectReportType(ele){
-    var form = $(ele).parent().parent();
-    var label = $(form).find(".additional_msg");
-    var select = $(form).find(".additional_msg_select");
-    //when the element additional msg is changed
-    switch (ele.value) {
-        case "wildfire":
-            label.text("Fire Type:");
-            select.find('option').remove();
-            select.append($("<option></option>")
-                .attr("value","")
-                .text("Choose the fire type"));
-            selectValues = ['Crown', 'Surface', 'Ground', 'Other'];//populate the drop down.
-            $.each(selectValues, function(index,value) {
-                select.append($("<option></option>")
-                    .attr("value",value)
-                    .text(value));
-            });
-            break;
-        case "trail":
-            label.text("Trail Rating:");
-            select.find('option').remove();
-            select.append($("<option></option>")
-                .attr("value","")
-                .text("Choose the trail rating"));
-            selectValues = ['1', '2', '3', '4','5'];//populate the drop down.
-            $.each(selectValues, function(index,value) {
-                select.append($("<option></option>")
-                    .attr("value",value)
-                    .text(value));
-            });
-        default://default if report type is not selected is to stay hidden
-            $(form).find(".additional_msg_div").css("visibility", "hidden");
-            return;
-    }
-    $(form).find(".additional_msg_div").css("visibility", "visible");//make visable when report type is selected.
-}
 // function to reset form after a create report is entered
 function resetForm(){
     document.getElementById("create_report_form").reset(); //reset form
     $('#create_report_form').find(".additional_msg_div").css("visibility", "hidden"); //change hidden message back to hidden
 }
-
 
 // create report when button is pressed
 function createReport(event){
@@ -125,3 +86,48 @@ function createReview(event){
     });
 }
 $("#review_form").on("submit",createReview);
+
+//run query when button is pressed
+function queryReport(event) {
+    event.preventDefault(); // stop form from submitting normally
+
+    var a = $("#query_report_form").serializeArray();
+    a.push({ name: "tab_id", value: "2" });// call to query the database
+    a = a.filter(function(item){return item.value != '';});//remove items with no values
+    $.ajax({
+        url: 'HttpServlet',
+        type: 'POST',
+        data: a,
+        success: function(reports) {
+            mapInitialization(reports);
+        },
+        error: function(xhr, status, error) {
+            alert("Status: " + status + "\nError: " + error);
+        }
+    });
+}
+
+$("#query_report_form").on("submit",queryReport);
+
+//run query when button is pressed
+function queryReview(event) {
+    event.preventDefault(); // stop form from submitting normally
+
+    var a = $("#query_review_form").serializeArray();
+    a.push({ name: "tab_id", value: "3" });// call to query the database
+    a = a.filter(function(item){return item.value != '';});//remove items with no values
+    $.ajax({
+        url: 'HttpServlet',
+        type: 'POST',
+        data: a,
+        success: function(reports) {
+            mapInitialization(reports);
+        },
+        error: function(xhr, status, error) {
+            alert("Status: " + status + "\nError: " + error);
+        }
+    });
+}
+
+$("#query_review_form").on("submit",queryReview);
+

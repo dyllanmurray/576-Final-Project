@@ -147,22 +147,22 @@ function initAutocomplete() {
     autocomplete.addListener('place_changed', onPlaceChanged);
 }
 
-// function onPlaceChanged() {
-// //// QUESTION #3
-//     place = autocomplete.getPlace();
-//     if (!place.geometry) {
-//         // User entered the name of a Place that was not suggested and
+ function onPlaceChanged() {
+ //// QUESTION #3
+     place = autocomplete.getPlace();
+    if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
 //         // pressed the Enter key, or the Place Details request failed.
-//         window.alert("No details available for input: '" + place.name + "'");
-//         return;
-//     }
+         window.alert("No details available for input: '" + place.name + "'");
+         return;
+     }
 //     // If the place has a geometry, then present it on a map.
-//     if (place.geometry.viewport) {
-//         map.fitBounds(place.geometry.viewport);
-//     } else {
-//         map.setCenter(place.geometry.location);
-//         map.setZoom(17);
-//     }
+     if (place.geometry.viewport) {
+         map.fitBounds(place.geometry.viewport);
+     } else {
+         map.setCenter(place.geometry.location);
+         map.setZoom(17);
+     }
 //     marker.setPosition(place.geometry.location);
 //     marker.setVisible(true);
 //
@@ -174,7 +174,7 @@ function initAutocomplete() {
 //             (place.address_components[2] && place.address_components[2].short_name || '')
 //         ].join(' ');
 //     }
-// }
+}
 
 //Execute our 'initialization' function once the page has loaded.
 google.maps.event.addDomListener(window, 'load', initialization);
