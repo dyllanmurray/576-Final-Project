@@ -30,29 +30,13 @@ function onSelectReportType(ele){
                     .attr("value",value)
                     .text(value));
             });
-/*        //if damage is selected
-        case "damage":
-            label.text("Damage Type:");
-            select.find('option').remove();
-            select.append($("<option></option>")
-                .attr("value","")
-                .text("Choose the damage type"));
-            selectValues = ['polution', 'building damage', 'road damage', 'casualty',
-                'other'];//populate dropdown
-            $.each(selectValues, function(index,value) {
-                select.append($("<option></option>")
-                    .attr("value",value)
-                    .text(value));
-            });
-            break;*/
         default://default if report type is not selected is to stay hidden
             $(form).find(".additional_msg_div").css("visibility", "hidden");
             return;
     }
     $(form).find(".additional_msg_div").css("visibility", "visible");//make visable when report type is selected.
 }
-
-//function to reset form after a create report is entered
+// function to reset form after a create report is entered
 function resetForm(){
     document.getElementById("create_report_form").reset(); //reset form
     $('#create_report_form').find(".additional_msg_div").css("visibility", "hidden"); //change hidden message back to hidden
@@ -104,7 +88,7 @@ $("#create_report_form").on("submit",createReport);
 function createReview(event){
     event.preventDefault();// // stop form from submitting normally
     //create variable and assign as a serialized array
-    var a = $("#add_review_form").serializeArray();
+    var a = $("#review_form").serializeArray();
     a.push({name: "tab_id", value: "1"});//push the items to make sure create a report is ran in the servlett
     // push to a the long and lat of the location selected by user
     a.push({name: "longitude", value: place.geometry.location.lng()});
@@ -140,50 +124,4 @@ function createReview(event){
         }
     });
 }
-$("#add_review_form").on("submit",createReview);
-
-//run query when button is pressed
-function queryReport(event) {
-    event.preventDefault(); // stop form from submitting normally
-
-    var a = $("#query_report_form").serializeArray();
-    a.push({ name: "tab_id", value: "2" });// call to query the database
-    a = a.filter(function(item){return item.value != '';});//remove items with no values
-    $.ajax({
-        url: 'HttpServlet',
-        type: 'POST',
-        data: a,
-        success: function(reports) {
-            mapInitialization(reports);
-        },
-        error: function(xhr, status, error) {
-            alert("Status: " + status + "\nError: " + error);
-        }
-    });
-}
-
-$("#query_report_form").on("submit",queryReport);
-
-//run query when button is pressed
-function queryReview(event) {
-    event.preventDefault(); // stop form from submitting normally
-
-    var a = $("#query_review_form").serializeArray();
-    a.push({ name: "tab_id", value: "3" });// call to query the database
-    a = a.filter(function(item){return item.value != '';});//remove items with no values
-    $.ajax({
-        url: 'HttpServlet',
-        type: 'POST',
-        data: a,
-        success: function(reports) {
-            mapInitialization(reports);
-        },
-        error: function(xhr, status, error) {
-            alert("Status: " + status + "\nError: " + error);
-        }
-    });
-}
-
-$("#query_review_form").on("submit",queryReview);
-	
-	
+$("#review_form").on("submit",createReview);

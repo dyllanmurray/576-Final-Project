@@ -33,7 +33,7 @@
                         <!-- Tab Navis-->
                         <ul class="nav nav-tabs">
                                 <li><a href="#create_report" data-toggle="tab">Create Wildfire Report</a></li>
-                                <li class="active"><a href="#add_review" data-toggle="tab">Add Trail Review</a></li>
+                                <li class="active"><a href="#review" data-toggle="tab">Add Trail Review</a></li>
                                 <li><a href="#query_report" data-toggle="tab">Query Wildfires</a></li>
                                 <li><a href="#query_trail" data-toggle="tab">Query Trails</a></li>
                         </ul>
@@ -86,8 +86,8 @@
                                 </div>
 
                                 <!-- Add Review Panel -->
-                                <div class="tab-pane active" id="add_review">
-                                        <form id="add_review_form">
+                                <div class="tab-pane active" id="review">
+                                        <form id="review_form">
                                                 <!--<div><label>Zoom to Location:</label>
                                                     <input id="autocomplete" placeholder="Location"></div> -->
                                                 <div><label>Trail Name:&nbsp</label><input placeholder="Trail Name" name="trail_name"></div>

@@ -1,63 +1,8 @@
-//when report type is selected change hidden dropdown to correct items.
-function onSelectReportType(ele){
-    var form = $(ele).parent().parent();
-    var label = $(form).find(".additional_msg");
-    var select = $(form).find(".additional_msg_select");
-    //when the element additional msg is changed
-    switch (ele.value) {
-        case "wildfire":
-            label.text("Fire Type:");
-            select.find('option').remove();
-            select.append($("<option></option>")
-                .attr("value","")
-                .text("Choose the fire type"));
-            selectValues = ['Crown', 'Surface', 'Ground', 'Other'];//populate the drop down.
-            $.each(selectValues, function(index,value) {
-                select.append($("<option></option>")
-                    .attr("value",value)
-                    .text(value));
-            });
-            break;
-        case "trail":
-            label.text("Trail Rating:");
-            select.find('option').remove();
-            select.append($("<option></option>")
-                .attr("value","")
-                .text("Choose the trail rating"));
-            selectValues = ['1', '2', '3', '4','5'];//populate the drop down.
-            $.each(selectValues, function(index,value) {
-                select.append($("<option></option>")
-                    .attr("value",value)
-                    .text(value));
-            });
-/*        //if damage is selected
-        case "damage":
-            label.text("Damage Type:");
-            select.find('option').remove();
-            select.append($("<option></option>")
-                .attr("value","")
-                .text("Choose the damage type"));
-            selectValues = ['polution', 'building damage', 'road damage', 'casualty',
-                'other'];//populate dropdown
-            $.each(selectValues, function(index,value) {
-                select.append($("<option></option>")
-                    .attr("value",value)
-                    .text(value));
-            });
-            break;*/
-        default://default if report type is not selected is to stay hidden
-            $(form).find(".additional_msg_div").css("visibility", "hidden");
-            return;
-    }
-    $(form).find(".additional_msg_div").css("visibility", "visible");//make visable when report type is selected.
-}
-
-//function to reset form after a create report is entered
+// function to reset form after a create report is entered
 function resetForm(){
     document.getElementById("create_report_form").reset(); //reset form
     $('#create_report_form').find(".additional_msg_div").css("visibility", "hidden"); //change hidden message back to hidden
 }
-
 
 // create report when button is pressed
 function createReport(event){
@@ -104,7 +49,7 @@ $("#create_report_form").on("submit",createReport);
 function createReview(event){
     event.preventDefault();// // stop form from submitting normally
     //create variable and assign as a serialized array
-    var a = $("#add_review_form").serializeArray();
+    var a = $("#review_form").serializeArray();
     a.push({name: "tab_id", value: "1"});//push the items to make sure create a report is ran in the servlett
     // push to a the long and lat of the location selected by user
     a.push({name: "longitude", value: place.geometry.location.lng()});
@@ -140,7 +85,7 @@ function createReview(event){
         }
     });
 }
-$("#add_review_form").on("submit",createReview);
+$("#review_form").on("submit",createReview);
 
 //run query when button is pressed
 function queryReport(event) {
@@ -185,5 +130,4 @@ function queryReview(event) {
 }
 
 $("#query_review_form").on("submit",queryReview);
-	
-	
+
