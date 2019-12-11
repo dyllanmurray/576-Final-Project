@@ -1,17 +1,19 @@
 package org.webproject.servlet;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.webproject.servlet.DBUtility;
 
 /**
  * Servlet implementation class HttpServlet
@@ -21,11 +23,10 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     // @see javax.servlet.http.HttpServlet javax.servlet.http.HttpServlet()
+     * @see javax.servlet.http.HttpServlet#javax.servlet.http.HttpServlet()
      */
     public HttpServlet() {
-        super();
-    }
+        super(); }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,20 +34,33 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse
+            response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
+        JSONObject data = new JSONObject();
+        try {
+            java.util.Date d = new java.util.Date();
+            data.put("Time request received:",d.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        response.getWriter().write(data.toString());
+    }
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse
+    protected void doPost2(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         String tab_id = request.getParameter("tab_id");
 
-        // create wildfire report
+        // create a report
         if (tab_id.equals("0")) {
-            System.out.println("Your wildfire report has been submitted!");
+            System.out.println("A report is submitted!");
             try {
                 createReport(request, response);
             } catch (SQLException e) {
@@ -54,20 +68,10 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
             }
         }
 
-        //create trail review
+/*        // query reports
         else if (tab_id.equals("1")) {
-            System.out.println("Your trail review has been submitted!");
             try {
-                createReview(request, response);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // query wildfire reports
-        else if (tab_id.equals("2")) {
-            try {
-                queryReport(request, response);
+                createReport(request, response);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -75,31 +79,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-
-        // query trail reviews
-        else if (tab_id.equals("3")) {
-            try {
-                queryReview(request, response);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void queryReview(HttpServletRequest request, HttpServletResponse response)
-            throws JSONException, SQLException, IOException {
-        JSONArray list = new JSONArray();
-    }
-
-    private void createReview(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        DBUtility dbutil = new DBUtility();
-        String sql;
+        }*/
     }
 
     private void createReport(HttpServletRequest request, HttpServletResponse
@@ -107,7 +87,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         DBUtility dbutil = new DBUtility();
         String sql;
 
-        // create user
+
+        // 2. create user
         int user_id = 0;
         String fN = request.getParameter("fN");
         String lN = request.getParameter("lN");
@@ -117,6 +98,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         if (lN != null) {lN = "'" + lN + "'";}
         if (tel != null) {tel = "'" + tel + "'";}
         if (email != null) {email = "'" + email + "'";}
+
+        sql = "insert into person (first_name, last_name, " +
+                "telephone, email) values (" + fN +
+                "," + lN + "," +  "," + tel +
+                "," + email;
+
+        dbutil.modifyDB(sql);
 
         // record user_id
         ResultSet res_2 = dbutil.queryDB("select last_value from person_id_seq");
@@ -128,17 +116,22 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         // 3. create report
         int report_id = 0;
         String report_type = request.getParameter("report_type");
+        String fire_type = request.getParameter("fire_type");
+        String burn_type = request.getParameter("burn_type");
         String lon = request.getParameter("longitude");
         String lat = request.getParameter("latitude");
         String message = request.getParameter("message");
         String add_msg = request.getParameter("additional_message");
         if (report_type != null) {report_type = "'" + report_type + "'";}
+        if (fire_type != null) {report_type = "'" + fire_type + "'";}
+        if (burn_type != null) {report_type = "'" + burn_type + "'";}
         if (message != null) {message = "'" + message + "'";}
         if (add_msg != null) {add_msg = "'" + add_msg + "'";}
 
-        sql = "insert into report (reportor_id, report_type, disaster_type, geom," +
-                " message) values (" + user_id + "," + report_type + "," + ", ST_GeomFromText('POINT(" + lon + " " + lat
-                + ")', 4326)" + "," + message + ")";
+        sql = "insert into report (reportor_id, report_type, fire_type, burn_type, geom," +
+                " message) values (" + user_id + "," + report_type + "," + fire_type
+                + burn_type + ", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)" + "," +
+                message + ")";
         dbutil.modifyDB(sql);
 
         // record report_id
@@ -147,24 +140,6 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         report_id = res_3.getInt(1);
 
         System.out.println("Success! Report created.");
-
-        // 4. create specific report
-        if (report_type.equals("'donation'")) {
-            sql = "insert into donation_report (report_id, resource_type) values ('"
-                    + report_id + "'," + add_msg + ")";
-            System.out.println("Success! Donation report created.");
-        } else if (report_type.equals("'request'")) {
-            sql = "insert into request_report (report_id, resource_type) values ('"
-                    + report_id + "'," + add_msg + ")";
-            System.out.println("Success! Request report created.");
-        } else if (report_type.equals("'damage'")) {
-            sql = "insert into damage_report (report_id, damage_type) values ('"
-                    + report_id + "'," + add_msg + ")";
-            System.out.println("Success! Damage report created.");
-        } else {
-            return;
-        }
-        dbutil.modifyDB(sql);
 
         // response that the report submission is successful
         JSONObject data = new JSONObject();
@@ -177,13 +152,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
     }
 
-    private void queryReport(HttpServletRequest request, HttpServletResponse
+ /*   private void queryReport(HttpServletRequest request, HttpServletResponse
             response) throws JSONException, SQLException, IOException {
         JSONArray list = new JSONArray();
 
         String disaster_type = request.getParameter("disaster_type");
         String report_type = request.getParameter("report_type");
-        // resource_or_damage will be null if report_type is null
+        // resource_or_damage will be null if disaster_type is null
         String resource_or_damage = request.getParameter("resource_or_damage");
 
         // request report
@@ -254,7 +229,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
             m.put("message", res.getString("message"));
             list.put(m);
         }
-    }
+    }*/
 
     public void main() throws JSONException {
     }

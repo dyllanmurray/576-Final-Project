@@ -67,7 +67,7 @@
                                                         </select>
                                                 </div>
                                                 <div><label>Burn Severity:</label>
-                                                        <select name="burn_severity">
+                                                        <select name="burn_type">
                                                                 <option value="">Choose the burn severity</option>
                                                                 <option value="Low">Low</option>
                                                                 <option value="Medium">Medium</option>
@@ -179,6 +179,7 @@
 
         </div>
 </div>
+
 <script src="js/loadform.js"></script>
 <script src="js/loadmap.js"></script>
 
